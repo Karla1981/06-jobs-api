@@ -12,9 +12,16 @@ const getJob = async (req, res) => {
 }
 // create job
 const createJob = async (req, res) => {
-    req.body.createdBy = req.user.userId
-    const job = await Job.create(req.body)
-    res.status(StatusCodes.CREATED).json({ job })
+    try {
+
+        req.body.createdBy = req.user.userId
+        const job = await Job.create(req.body)
+        res.status(StatusCodes.CREATED).json({ job })
+
+    } catch (error) {
+        
+        res.send(error)
+    }
 }
 // update job
 const updateJob = async (req, res) => {
